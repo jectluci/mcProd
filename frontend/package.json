@@ -3,6 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@emotion/react": "^11.8.2",
+        "@emotion/styled": "^11.8.1",
+        "@mui/material": "^5.5.3",
+        "axios": "^0.26.1",
         "prop-types": "^15.8.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -18,7 +22,8 @@
     },
     "eslintConfig": {
         "extends": [
-            "./eslint/eslintrc.js"
+            "./eslint/eslintrc.js",
+            "./node_modules/standard/eslintrc.json"
         ]
     },
     "browserslist": {
@@ -39,6 +44,7 @@
         "eslint-plugin-import": "^2.25.4",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^5.2.0",
-        "eslint-plugin-react": "^7.29.4"
+        "eslint-plugin-react": "^7.29.4",
+        "standard": "^16.0.4"
     }
 }

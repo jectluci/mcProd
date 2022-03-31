@@ -1,30 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { Producto } from '../../components'
-
-function ListProduct () {
-  const [productos, setProductos] = useState()
-
-  const listado = async () => {
-    fetch('http://localhost:3001/grupomc/products')
-      .then((res) => res.json())
-      .then((res) => setProductos(res))
-  }
-
-  useEffect(() => {
-    listado()
-  }, [])
-
+const ListProduct = ({ listaProductos, onDelete, onEdit }) => {
   return (
-        <div>
-            {productos.map((producto) => (
-                <Producto
-                    key={producto.id_producto}
-                    nombre={producto.nombre}
-                    precio={producto.precio}
-                    descripcion={producto.descripcion}
-                />
-            ))}
-        </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>descripcion</th>
+            <th>precio</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listaProductos.map((producto) => (
+            <tr key={producto.id_producto}>
+              <td>{producto.nombre}</td>
+              <td>{producto.descripcion}</td>
+              <td>{producto.precio}</td>
+              <td>
+                <button onClick={() => onEdit(producto)}>
+                  Editar
+                </button>
+                <button onClick={() => onDelete(producto)}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
