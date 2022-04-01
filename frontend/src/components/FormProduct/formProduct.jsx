@@ -6,6 +6,7 @@ const AddProducts = ({ funcion, dataProducto }) => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: {}
@@ -19,8 +20,12 @@ const AddProducts = ({ funcion, dataProducto }) => {
     }
   }, [dataProducto])
 
+  const pasoDatos = (data) => {
+    funcion(data)
+    reset()
+  }
   return (
-    <form onSubmit={handleSubmit(funcion)}>
+    <form onSubmit={handleSubmit(pasoDatos)}>
       <h3>Form de añadir producto</h3>
       <div>
         <label htmlFor=''>Nombre</label>
@@ -32,6 +37,7 @@ const AddProducts = ({ funcion, dataProducto }) => {
       <div>
         <label htmlFor=''>Precio</label>
         <input
+          type='number'
           step='any'
           {...register('precio', { required: true, valueAsNumber: true })}
         />
