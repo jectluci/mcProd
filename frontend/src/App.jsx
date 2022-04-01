@@ -17,8 +17,8 @@ function App () {
     const url = 'http://localhost:3001/grupomc/products/'
     axios.post(url, values).then(() => listado())
   }
-  const updateProduct = async (values) => {
-    const url = `http://localhost:3001/grupomc/products/${values.id_producto}`
+  const updateProduct = async (values, id) => {
+    const url = `http://localhost:3001/grupomc/products/${id}`
     axios.post(url, values).then(() => {
       setProducto()
       listado()
@@ -27,6 +27,14 @@ function App () {
   const eliminarProducto = (producto) => {
     const url = `http://localhost:3001/grupomc/products/${producto.id_producto}`
     axios.delete(url).then(() => listado())
+  }
+
+  const AddOrEdit = (values) => {
+    if (producto) {
+      updateProduct(values, producto.id_producto)
+    } else {
+      addProducto(values)
+    }
   }
 
   return (
@@ -39,7 +47,7 @@ function App () {
         />
       </div>
       <div>
-        <FormProduct funcion={addProducto} />
+        <FormProduct funcion={AddOrEdit} dataProducto={producto} />
       </div>
     </div>
   )
