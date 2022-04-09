@@ -1,23 +1,24 @@
-const pool = require("../connect/connect");
 const mysql = require("mysql");
+const exesql = require("../connect/querys");
 
 const getAllProducts = async (req, res) => {
     let sql = "Select * from producto";
-    const promise = pool.query(sql, (err, data) => {
-        res.json(data);
-    });
+    try {
+        exesql(sql, res);
+        console.log("lista de productos");
+    } catch (e) {
+        /* handle error */
+    }
 };
 const getProduct = async (req, res) => {
     const { id } = req.params;
     let consulta = "select * from producto where id_producto = ?";
     let sql = mysql.format(consulta, [id]);
-    const promise = pool.query(sql, (err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        res.json(data);
-    });
+    try {
+        exesql(sql, res);
+    } catch (e) {
+        /* handle error */
+    }
 };
 
 const addProduct = async (req, res) => {
@@ -25,13 +26,11 @@ const addProduct = async (req, res) => {
     let consulta =
         "insert into producto (nombre, precio, descripcion) values (?,?,?)";
     let sql = mysql.format(consulta, [nombre, precio, descripcion]);
-    const promise = pool.query(sql, (err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        res.status(200).json({ message: "registro insertado" });
-    });
+    try {
+        exesql(sql, res);
+    } catch (e) {
+        /* handle error */
+    }
 };
 
 const updateProduct = async (req, res) => {
@@ -40,26 +39,22 @@ const updateProduct = async (req, res) => {
     let consulta =
         "update producto set nombre =?,precio=?, descripcion=?   where id_producto = ? ";
     let sql = mysql.format(consulta, [nombre, precio, descripcion, id]);
-    const promise = pool.query(sql, (err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        res.status(200).json({ message: "registro actualizado" });
-    });
+    try {
+        exesql(sql, res);
+    } catch (e) {
+        /* handle error */
+    }
 };
 
 const deleteProduct = async (req, res) => {
     const { id } = req.params;
     let consulta = "delete from producto where id_producto = ?";
     let sql = mysql.format(consulta, [id]);
-    const promise = pool.query(sql, (err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        res.status(200).json({ message: "registro eliminado" });
-    });
+    try {
+        exesql(sql, res);
+    } catch (e) {
+        /* handle error */
+    }
 };
 
 module.exports = {
