@@ -1,10 +1,19 @@
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Button } from '@mui/material'
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+  Button
+} from '@mui/material'
 
 const ListProduct = ({ listaProductos, onDelete, onEdit }) => {
   return (
     <div>
-      <TableContainer>
-        <Table size='small' sx={{ width: 800 }} component={Paper}>
+      <TableContainer sx={{ width: '800px' }} component={Paper}>
+        <Table size='small'>
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
@@ -20,16 +29,17 @@ const ListProduct = ({ listaProductos, onDelete, onEdit }) => {
                 <TableCell>{producto.descripcion}</TableCell>
                 <TableCell>{producto.precio}</TableCell>
                 <TableCell>
-
-                  <Button color='secondary' onClick={() => onEdit(producto)}>Editar</Button>
-                  <Button color='error' onClick={() => onDelete(producto)}>Eliminar</Button>
+                  <Button color='secondary' onClick={() => onEdit(producto)}>
+                    Editar
+                  </Button>
+                  <Button color='error' onClick={() => onDelete(producto)}>
+                    Eliminar
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
-
           </TableBody>
         </Table>
-
       </TableContainer>
     </div>
   )

@@ -1,16 +1,30 @@
 import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { TextField, Button, Typography } from '@mui/material'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+const schema = yup
+  .object({
+    nombre: yup.string().required('Este campo es requerido'),
+    precio: yup
+      .number('este campo tiene que ser un numero')
+      .positive('')
+      .required('Este campo es requerido'),
+    descripcion: yup.string().required('Este campo es requerido')
+  })
+  .required()
 
 const AddProducts = ({ funcion, dataProducto }) => {
   const {
-    register,
     handleSubmit,
     setValue,
+    control,
     reset,
     formState: { errors }
   } = useForm({
-    defaultValues: {}
+    defaultValues: { nombre: '', precio: '', descripcion: '' },
+    resolver: yupResolver(schema)
   })
 
   useEffect(() => {
@@ -31,38 +45,68 @@ const AddProducts = ({ funcion, dataProducto }) => {
         Form de añadir producto
       </Typography>
       <div>
-        <TextField
-          label='Nombre'
-          type='text' {...register('nombre', { required: true })}
-          margin='dense'
+        <Controller
+          control={control}
+          name='nombre'
+          render={({ field: { onChange, onBlur, value, name, ref } }) => (
+            <TextField
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              name={name}
+              ref={ref}
+              placeholder='Nombre'
+              type='text'
+              margin='dense'
+              error={Boolean(errors.nombre)}
+              helperText={errors.nombre?.message}
+            />
+          )}
         />
-        {errors.nombre?.type === 'required' && (
-          <label htmlFor=''>este campo es requerio</label>
-        )}
       </div>
       <div>
-        <TextField
-          label='Precio'
-          type='number'
-          step='any'
-          {...register('precio', { required: true, valueAsNumber: true })}
-          margin='dense'
+        <Controller
+          control={control}
+          name='precio'
+          render={({ field: { onChange, onBlur, value, name, ref } }) => (
+            <TextField
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              name={name}
+              ref={ref}
+              placeholder='Precio'
+              margin='dense'
+              error={Boolean(errors.precio)}
+              helperText={errors.precio?.message}
+            />
+          )}
         />
-        {errors.precio?.type === 'required' && (
-          <label htmlFor=''>este campo es requerio</label>
-        )}
       </div>
       <div>
-        <TextField
-          label='Descripcion'
-          type='text' {...register('descripcion', { required: true })}
-          margin='dense'
+        <Controller
+          control={control}
+          name='descripcion'
+          render={({ field: { onChange, onBlur, value, name, ref } }) => (
+            <TextField
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              name={name}
+              ref={ref}
+              placeholder='Descripcion'
+              type='text'
+              margin='dense'
+              multiline
+              error={Boolean(errors.descripcion)}
+              helperText={errors.descripcion?.message}
+            />
+          )}
         />
-        {errors.descripcion?.type === 'required' && (
-          <label htmlFor=''>este campo es requerio</label>
-        )}
       </div>
-      <Button type='submit' variant='contained' color='success'>Guardar Procuto</Button>
+      <Button type='submit' variant='contained' color='success'>
+        Guardar Procuto
+      </Button>
     </form>
   )
 }

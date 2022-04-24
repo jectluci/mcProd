@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './App.css'
 import { ListProduct, FormProduct } from './components'
-import { Container } from '@mui/material'
 
 function App () {
   const [listaProductos, setListaProductos] = useState([])
@@ -40,18 +39,16 @@ function App () {
 
   return (
     <div className='App'>
-      <Container>
-        <div>
-          <ListProduct
-            listaProductos={listaProductos}
-            onDelete={eliminarProducto}
-            onEdit={(producto) => setProducto(producto)}
-          />
-        </div>
-        <div>
-          <FormProduct funcion={AddOrEdit} dataProducto={producto} />
-        </div>
-      </Container>
+      <div>
+        <ListProduct
+          listaProductos={listaProductos}
+          onDelete={eliminarProducto}
+          onEdit={(producto) => setProducto(producto)}
+        />
+      </div>
+      <div>
+        <FormProduct funcion={AddOrEdit} dataProducto={producto} />
+      </div>
     </div>
   )
 }
