@@ -23,8 +23,7 @@ const getProduct = async (req, res) => {
 
 const addProduct = async (req, res) => {
     const { nombre, precio, descripcion } = req.body;
-    let consulta =
-        "insert into producto (nombre, precio, descripcion) values (?,?,?)";
+    let consulta = "CALL insertarProduct(?,?,?)";
     let sql = mysql.format(consulta, [nombre, precio, descripcion]);
     try {
         exesql(sql, res);
@@ -36,9 +35,8 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     const { id } = req.params;
     const { nombre, precio, descripcion } = req.body;
-    let consulta =
-        "update producto set nombre =?,precio=?, descripcion=?   where id_producto = ? ";
-    let sql = mysql.format(consulta, [nombre, precio, descripcion, id]);
+    let consulta = "CALL actualizarProduct(?,?,?,?)";
+    let sql = mysql.format(consulta, [id, nombre, precio, descripcion]);
     try {
         exesql(sql, res);
     } catch (e) {
@@ -48,7 +46,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     const { id } = req.params;
-    let consulta = "delete from producto where id_producto = ?";
+    let consulta = "CALL eliminarProduct(?)";
     let sql = mysql.format(consulta, [id]);
     try {
         exesql(sql, res);
