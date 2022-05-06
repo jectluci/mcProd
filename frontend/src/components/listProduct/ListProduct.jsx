@@ -9,9 +9,16 @@ import {
   Button
 } from '@mui/material'
 
+import { Search } from '../../components'
+import { useState } from 'react'
+
 const ListProduct = ({ listaProductos, onDelete, onEdit }) => {
+  const [buscador, setBuscador] = useState()
   return (
     <div>
+      <div>
+        <Search inBuscador={(buscador) => setBuscador(buscador)} />
+      </div>
       <TableContainer sx={{ width: '800px' }} component={Paper}>
         <Table size='small'>
           <TableHead>
@@ -23,7 +30,13 @@ const ListProduct = ({ listaProductos, onDelete, onEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {listaProductos.map((producto) => (
+            {listaProductos.filter(producto => {
+              if (buscador !== undefined) {
+                return producto.nombre.toLowerCase().includes(buscador.toLowerCase())
+              } else {
+                return producto
+              }
+            }).map((producto) => (
               <TableRow key={producto.id_producto}>
                 <TableCell>{producto.nombre}</TableCell>
                 <TableCell>{producto.descripcion}</TableCell>

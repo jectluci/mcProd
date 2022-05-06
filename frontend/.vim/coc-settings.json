@@ -1,9 +1,9 @@
 {
-    "tsserver.enable": true,
-    "prettier.disableLanguages": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ]
+	"tsserver.enable": true,
+	"prettier.disableLanguages": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	]
 }
